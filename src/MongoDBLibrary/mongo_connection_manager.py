@@ -24,7 +24,7 @@ class MongoConnectionManager(object):
         | # To connect to foo.bar.org's MongoDB service on port 27017 |
         | Connect To MongoDB | foo.bar.org | ${27017} |
         | # Or for an authenticated connection, note addtion of "mongodb://" to host uri |
-        | Connect To MongoDB | mongodb://admin:admin@foo.bar.org | ${27017} |
+        | Connect To MongoDB | mongodb://admin:admin@foo.bar.org/dbName | ${27017} |
         
         """
         dbapiModuleName = 'pymongo'
