@@ -134,7 +134,8 @@ class MongoQuery(object):
         """
         dbName = str(dbName)
         dbCollName = str(dbCollName)
-        recordJSON = dict(loads(recordJSON))
+        # JSON标准语法中，不支持单引号， 修正recordJSON 包含单引号问题
+        recordJSON = dict(loads(recordJSON.replace("'", '"')))
         if '_id' in recordJSON:
             recordJSON['_id'] = ObjectId(recordJSON['_id'])
         try:
@@ -159,8 +160,8 @@ class MongoQuery(object):
         """
         db_name = str(dbName)
         collection_name = str(dbCollName)
-        query_json = loads(queryJSON)
-        update_json = loads(updateJSON)
+        query_json = loads(queryJSON.replace("'", '"'))
+        update_json = loads(updateJSON.replace("'", '"'))
         if '_id' in query_json:
             query_json['_id'] = ObjectId(queryJSON['_id'])
         try:
@@ -217,8 +218,8 @@ class MongoQuery(object):
         """
         dbname = str(dbName)
         dbcollname = str(dbCollName)
-        record_json = dict(loads(queryJSON))
-        update_json = dict(loads(updateJSON))
+        record_json = dict(loads(queryJSON.replace("'", '"')))
+        update_json = dict(loads(updateJSON.replace("'", '"')))
         document_to_return = ReturnDocument.BEFORE if returnBeforeDocument is True else ReturnDocument.AFTER
         if '_id' in record_json:
             record_json['_id'] = ObjectId(record_json['_id'])
@@ -311,7 +312,7 @@ class MongoQuery(object):
     def _retrieve_mongodb_records(self, dbName, dbCollName, recordJSON, fields=[], returnDocuments=False):
         dbName = str(dbName)
         dbCollName = str(dbCollName)
-        criteria = dict(loads(recordJSON))
+        criteria = dict(loads(recordJSON.replace("'", '"')))
         try:
             db = self._dbconnection['%s' % (dbName,)]
         except TypeError:
@@ -350,7 +351,7 @@ class MongoQuery(object):
         """
         dbName = str(dbName)
         dbCollName = str(dbCollName)
-        recordJSON = loads(recordJSON)
+        recordJSON = loads(recordJSON.replace("'", '"'))
         if '_id' in recordJSON:
             recordJSON['_id'] = ObjectId(recordJSON['_id'])
         try:
