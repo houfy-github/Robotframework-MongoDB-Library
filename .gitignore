@@ -9,4 +9,4 @@ output.xml
 log.html
 *.sublime-project
 *.sublime-workspace
-
+dist/
